@@ -49,7 +49,7 @@ dependencies {
 	shade 'com.google.code.gson:gson:2.6.2'
 	shade 'commons-io:commons-io:1.4'
 	shade 'com.google.guava:guava:19.0'
-	shade ('weave-asm:weave:0.1.0.7'){
+	shade ('weave-asm:weave:0.1.0.10'){
 		transitive = false
 	}
 	shade ('enigma-asm:enigma:0.12.0.33:lib'){
