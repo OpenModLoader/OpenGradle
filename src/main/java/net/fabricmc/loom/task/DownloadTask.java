@@ -88,11 +88,16 @@ public class DownloadTask extends DefaultTask {
 						extension.localMappings = true;
 
 						//We delete this to make sure they are always re extracted.
-						deleteIfExists(Constants.MAPPINGS_ZIP.get(extension));
-						deleteIfExists(Constants.MAPPINGS_TINY_GZ.get(extension));
+						if (Constants.MAPPINGS_ZIP != Constants.MAPPINGS_ZIP_LOCAL || Constants.MAPPINGS_TINY_GZ != Constants.MAPPINGS_TINY_GZ_LOCAL) {
+							deleteIfExists(Constants.MAPPINGS_ZIP.get(extension));
+							deleteIfExists(Constants.MAPPINGS_TINY_GZ.get(extension));
+						} else {
+							getLogger().lifecycle(":skipping delete of the cached gz/zip mappings, restart the daemon if you switch between local and non local");
+						}
 						deleteIfExists(Constants.MAPPINGS_TINY.get(extension));
 						deleteIfExists(Constants.MAPPINGS_DIR.get(extension));
 
+						//todo fix this properly and dont do the above `if`, global state is not reset with the daemon!
 						Constants.MAPPINGS_TINY_GZ = Constants.MAPPINGS_TINY_GZ_LOCAL;
 						Constants.MAPPINGS_ZIP = Constants.MAPPINGS_ZIP_LOCAL;
 					}
